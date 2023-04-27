@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -28,7 +29,8 @@ namespace TestHwndHost
       process.WaitForInputIdle();
 
       Win32Native.SetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE,
-       new IntPtr(Win32Native.GetWindowLong(process.Handle, Win32Native.GWL_STYLE) | Win32Native.WS_CHILD));
+       new IntPtr((Win32Native.GetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE)
+        | Win32Native.WS_CHILD | Win32Native.WS_BORDER)&~Win32Native.WS_BORDER) );
 
       Win32Native.SetParent(process.MainWindowHandle, hwndParent.Handle);
 

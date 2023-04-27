@@ -12,6 +12,8 @@ namespace TestHwndHost
     public const int GWL_STYLE = -16;
     public const int WS_CHILD = 0x40000000;
     public const int WS_VISIBLE = 0x10000000;
+    public const int WS_CAPTION = 0x00C00000;
+    public const int WS_BORDER = 0x00800000;
 
     [DllImport("user32.dll")]
     public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
