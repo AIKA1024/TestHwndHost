@@ -8,14 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="24"/>
-      <RowDefinition Height="*"/>
-      <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <Button Grid.Row="0" Content="开始"/>
     <Border x:Name="Host" Grid.Row="1">
       <local:MyHwndHost/>
     </Border>
-    <TextBox Grid.Row="2" IsReadOnly="True"/>
   </Grid>
 </Window>

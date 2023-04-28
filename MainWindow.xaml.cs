@@ -30,7 +30,7 @@ namespace TestHwndHost
 
       Win32Native.SetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE,
        new IntPtr((Win32Native.GetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE)
-        | Win32Native.WS_CHILD | Win32Native.WS_BORDER)&~Win32Native.WS_BORDER) );
+        | Win32Native.WS_CHILD)&~Win32Native.WS_CAPTION) );
 
       Win32Native.SetParent(process.MainWindowHandle, hwndParent.Handle);
 

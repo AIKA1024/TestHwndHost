@@ -14,6 +14,7 @@ namespace TestHwndHost
     public const int WS_VISIBLE = 0x10000000;
     public const int WS_CAPTION = 0x00C00000;
     public const int WS_BORDER = 0x00800000;
+    public const int WS_THICKFRAME = 0x00040000;
 
     [DllImport("user32.dll")]
     public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
