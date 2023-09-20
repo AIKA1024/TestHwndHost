@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
@@ -26,7 +27,7 @@ namespace TestHwndHost
     private void UpdateProcessList()
     {
       ProcessList.Clear();
-      foreach (Process process in Process.GetProcesses()) 
+      foreach (Process process in Process.GetProcesses().OrderBy(p=>p.ProcessName)) 
       {
         ProcessList.Add(process);
       }
