@@ -3,14 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converts="clr-namespace:TestHwndHost.Resources.Converters"
         xmlns:local="clr-namespace:TestHwndHost"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="20"/>
+      <RowDefinition/>
     </Grid.RowDefinitions>
-    <Border x:Name="Host" Grid.Row="1">
-      <local:MyHwndHost/>
-    </Border>
+    <TextBlock Text="{Binding}"/>
+    <ListBox Grid.Row="1" x:Name="processListBox" SelectionChanged="processListBox_SelectionChanged">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <Image Height="32" Margin="4">
+              <Image.Source>
+                <Binding Path="MainModule.FileName" FallbackValue="pack://application:,,,/TestHwndHost;component/Resources/Images/process.ico" Converter="{converts:ProcessPathToIconConvert}"/>
+              </Image.Source>
+            </Image>
+            <StackPanel VerticalAlignment="Center">
+              <TextBlock Text="{Binding ProcessName,StringFormat={}进程名:{0}}"/>
+              <TextBlock Text="{Binding MainModule.FileName,FallbackValue=程序路径:无法获取 ,StringFormat={}程序路径:{0}}"/>
+            </StackPanel>
+          </StackPanel>
+          
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
   </Grid>
 </Window>

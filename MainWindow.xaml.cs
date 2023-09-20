@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -15,30 +16,35 @@ namespace TestHwndHost
     public MainWindow()
     {
       InitializeComponent();
+      ProcessList = new ObservableCollection<Process>();
+      processListBox.ItemsSource = ProcessList;
+      DataContext = this;
+      UpdateProcessList();
     }
-  }
+    public ObservableCollection<Process> ProcessList { get; set; }
 
-  public class MyHwndHost : HwndHost
-  {
-    protected override HandleRef BuildWindowCore(HandleRef hwndParent)
+    private void UpdateProcessList()
     {
-      Process process = new Process();
-      process.StartInfo.FileName = "notepad.exe";
-      process.StartInfo.UseShellExecute = false;
-      process.Start();
-      process.WaitForInputIdle();
-
-      Win32Native.SetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE,
-       new IntPtr((Win32Native.GetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE)
-        | Win32Native.WS_CHILD)&~Win32Native.WS_CAPTION) );
-
-      Win32Native.SetParent(process.MainWindowHandle, hwndParent.Handle);
-
-      return new HandleRef(this, process.MainWindowHandle);
+      ProcessList.Clear();
+      foreach (Process process in Process.GetProcesses()) 
+      {
+        ProcessList.Add(process);
+      }
     }
-    protected override void DestroyWindowCore(HandleRef hwnd)
+
+    private void processListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-      Win32Native.DestroyWindow(hwnd.Handle);
+      if (MessageBox.Show("切换监控进程", "提示",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+      {
+        Process process = (Process)processListBox.SelectedItem;
+        if (process.MainWindowHandle == IntPtr.Zero)
+        {
+          MessageBox.Show("无法捕获该进程,可能该进程并没有窗口或者这个是隐藏的进程");
+          return;
+        }
+        ViewWindow viewWindow = new ViewWindow(process);
+        viewWindow.Show();
+      }
     }
   }
 }
