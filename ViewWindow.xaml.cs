@@ -20,10 +20,8 @@ namespace TestHwndHost
   /// </summary>
   public partial class ViewWindow : Window
   {
-    public Process MonoitorProcess { get; set; }
     public ViewWindow(Process process)
     {
-      MonoitorProcess = process;
       DataContext = process;
       InitializeComponent();
     }

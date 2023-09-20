@@ -6,13 +6,13 @@
         xmlns:converts="clr-namespace:TestHwndHost.Resources.Converters"
         xmlns:local="clr-namespace:TestHwndHost"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Capture Tools" Height="450" Width="800">
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="20"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
-    <TextBlock Text="{Binding}"/>
+    <TextBlock Margin="12 0" Text="{Binding SelectedItem.ProcessName,FallbackValue=点击一个进程开始捕获,ElementName=processListBox,StringFormat={}当前监控进程:{0}}"/>
     <ListBox Grid.Row="1" x:Name="processListBox" SelectionChanged="processListBox_SelectionChanged">
       <ListBox.ItemTemplate>
         <DataTemplate>

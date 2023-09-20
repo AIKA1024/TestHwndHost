@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows;
-using System.Windows.Interop;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TestHwndHost
 {
@@ -14,6 +12,7 @@ namespace TestHwndHost
   /// </summary>
   public partial class MainWindow : Window
   {
+    System.Timers.Timer timer;
     public MainWindow()
     {
       InitializeComponent();
@@ -21,21 +20,31 @@ namespace TestHwndHost
       processListBox.ItemsSource = ProcessList;
       DataContext = this;
       UpdateProcessList();
+      timer = new System.Timers.Timer();
+      timer.Interval = 3000;
+      timer.Elapsed += (s, e) => { UpdateProcessList(); };
+      timer.Start();
     }
+
     public ObservableCollection<Process> ProcessList { get; set; }
 
     private void UpdateProcessList()
     {
-      ProcessList.Clear();
-      foreach (Process process in Process.GetProcesses().OrderBy(p=>p.ProcessName)) 
+      Application.Current.Dispatcher.Invoke(() =>
       {
-        ProcessList.Add(process);
-      }
+        foreach (Process process in Process.GetProcesses().OrderBy(p => p.ProcessName))
+        {
+          ProcessList.Add(process);
+        }
+      });
     }
 
     private void processListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-      if (MessageBox.Show("切换监控进程", "提示",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+      if (processListBox.SelectedItem == null)
+        return;
+
+      if (MessageBox.Show("切换监控进程", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
       {
         Process process = (Process)processListBox.SelectedItem;
         if (process.MainWindowHandle == IntPtr.Zero)
@@ -44,8 +53,20 @@ namespace TestHwndHost
           return;
         }
         ViewWindow viewWindow = new ViewWindow(process);
-        viewWindow.Show();
+        try
+        {
+          viewWindow.Show();
+        }
+        catch (Exception ex)
+        {
+          MessageBox.Show(ex.Message,"错误");
+          process.Kill();
+          process.Close();
+          process.Dispose();
+        }
       }
+      else
+        processListBox.SelectedItem = null;
     }
   }
 }
