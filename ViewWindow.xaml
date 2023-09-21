@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestHwndHost"
         mc:Ignorable="d"
-        Title="ViewWindow" Height="450" Width="800" Closed="Window_Closed">
+        Title="ViewWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
     <Grid Margin="4">
       <Border x:Name="Host" Grid.Row="1">
         <local:MyHwndHost x:Name="myHwndHost"/>

@@ -15,6 +15,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestHwndHost.Utils;
+using TestHwndHost.Views;
 
 namespace TestHwndHost
 {
@@ -31,11 +33,20 @@ namespace TestHwndHost
       process.Exited += (s, e) => Close();
       InitializeComponent();
     }
-    private void Window_Closed(object sender, EventArgs e)
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
       if (!CaptureProcess.HasExited)
       {
         myHwndHost.Dispose();
+        foreach (var item in PageManager.GetPage<MonitorPage>().ProgramList)
+        {
+          if (item.Path == CaptureProcess.MainModule.FileName)
+          {
+            item.IsCapture = false;
+            break;
+          }
+        }
       }
     }
   }
