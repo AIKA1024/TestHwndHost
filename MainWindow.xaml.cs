@@ -25,7 +25,7 @@ namespace TestHwndHost
       ProcessList = new ObservableCollection<Process>();
       processPage = PageManager.GetPage<ProcessPage>();
       monitorPage = PageManager.GetPage<MonitorPage>();
-      processPage.processListBox.SelectionChanged += (s, e) => UpdateProcessList();
+      processPage.processListBox.SelectionChanged += processListBox_SelectionChanged;
       ProcessRadBtn.IsChecked = true;
       settingPage = PageManager.GetPage<SettingPage>();
       processPage.processListBox.ItemsSource = ProcessList;
