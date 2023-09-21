@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Interop;
+using static TestHwndHost.ViewWindow;
 
 namespace TestHwndHost
 {
@@ -15,7 +16,7 @@ namespace TestHwndHost
     private Process process;
     protected override HandleRef BuildWindowCore(HandleRef hwndParent)
     {
-      process = (Process)DataContext;
+      process = ((TempClass)DataContext).Process;
 
       OriginalWinStyle = Win32Native.GetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE);
       Win32Native.SetWindowLong(process.MainWindowHandle, Win32Native.GWL_STYLE,

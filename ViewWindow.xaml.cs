@@ -29,9 +29,15 @@ namespace TestHwndHost
     public ViewWindow(Process process)
     {
       CaptureProcess = process;
-      DataContext = process;
+      DataContext = new TempClass() { Process = process, Option = PageManager.GetPage<SettingPage>().PgOption }; 
       process.Exited += (s, e) => Close();
       InitializeComponent();
+    }
+
+    public class TempClass
+    {
+      public Option Option { get; set; }
+      public Process Process { get; set; }
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

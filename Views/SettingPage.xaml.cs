@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +22,28 @@ namespace TestHwndHost.Views
   /// </summary>
   public partial class SettingPage : Page
   {
+    public Option PgOption { get; set; } = new Option();
     public SettingPage()
     {
       InitializeComponent();
+
+      DataContext = PgOption;
     }
+  }
+  public class Option : INotifyPropertyChanged
+  {
+    private bool alwaysOnTop;
+
+    public bool AlwaysOnTop
+    {
+      get { return alwaysOnTop; }
+      set
+      {
+        alwaysOnTop = value;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AlwaysOnTop)));
+      }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
   }
 }

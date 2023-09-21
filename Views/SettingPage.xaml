@@ -7,8 +7,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingPage">
-  <StackPanel Margin="12">
-    <TextBlock Text="此软件是免费给曾gg开发的，如果你是购买得来的，请退款"/>
-  </StackPanel>
+  <DockPanel LastChildFill="False" Margin="12">
+    <CheckBox IsChecked="{Binding AlwaysOnTop}" DockPanel.Dock="Top" Content="捕获窗口始终在最上层"/>
+    <TextBlock DockPanel.Dock="Bottom" Text="某陈:我要把你们这些软件的妈妈全部抓起来"/>
+    <TextBlock DockPanel.Dock="Bottom" Text="此软件是免费给曾gg开发的，如果你是购买得来的，请退款"/>
+  </DockPanel>
   
 </Page>
