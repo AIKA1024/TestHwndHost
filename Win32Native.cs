@@ -15,6 +15,9 @@ namespace TestHwndHost
     public const int WS_CAPTION = 0x00C00000;
     public const int WS_BORDER = 0x00800000;
     public const int WS_THICKFRAME = 0x00040000;
+    public const uint SWP_NOMOVE = 0x0002; // 不移动窗口
+    public const uint SWP_NOSIZE = 0x0001; // 不改变窗口大小
+    public const long WS_POPUP = 0x80000000L;
 
     [DllImport("user32.dll")]
     public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
@@ -26,17 +29,6 @@ namespace TestHwndHost
     [DllImport("user32.dll", EntryPoint = "DestroyWindow", CharSet = CharSet.Unicode)]
     public static extern bool DestroyWindow(IntPtr hwnd);
     [DllImport("user32.dll", EntryPoint = "CreateWindowEx", CharSet = CharSet.Unicode)]
-    public static extern IntPtr CreateWindowEx(int dwExStyle,
-                                                string lpszClassName,
-                                                string lpszWindowName,
-                                                int style,
-                                                int x, int y,
-                                                int width, int height,
-                                                IntPtr hwndParent,
-                                                IntPtr hMenu,
-                                                IntPtr hInst,
-                                                [MarshalAs(UnmanagedType.AsAny)] object pvParam);
-
-    
+    public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
   }
 }

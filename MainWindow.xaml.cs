@@ -32,6 +32,7 @@ namespace TestHwndHost
     {
       Application.Current.Dispatcher.Invoke(() =>
       {
+        ProcessList.Clear();
         foreach (Process process in Process.GetProcesses().OrderBy(p => p.ProcessName))
         {
           ProcessList.Add(process);
@@ -41,15 +42,21 @@ namespace TestHwndHost
 
     private void processListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
+      timer.Stop();
       if (processListBox.SelectedItem == null)
+      {
+        timer.Start();
         return;
+      }
 
       if (MessageBox.Show("切换监控进程", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
       {
         Process process = (Process)processListBox.SelectedItem;
         if (process.MainWindowHandle == IntPtr.Zero)
         {
-          MessageBox.Show("无法捕获该进程,可能该进程并没有窗口或者这个是隐藏的进程");
+          MessageBox.Show("无法捕获该进程,可能该进程并没有窗口或者这个是隐藏的进程","提示");
+          processListBox.SelectedItem = null;
+          timer.Start();
           return;
         }
         ViewWindow viewWindow = new ViewWindow(process);
@@ -67,6 +74,8 @@ namespace TestHwndHost
       }
       else
         processListBox.SelectedItem = null;
+
+      timer.Start();
     }
   }
 }
