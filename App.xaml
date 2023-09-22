@@ -8,6 +8,8 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Resources/Styles/RadioButton.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Resources/Styles/Button.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Resources/Styles/ListBox.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Resources/Styles/ListBoxItem.xaml"/>
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Application.Resources>
