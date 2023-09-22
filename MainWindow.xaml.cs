@@ -47,7 +47,7 @@ namespace TestHwndHost
       Application.Current.Dispatcher.Invoke(() =>
       {
         ProcessList.Clear();
-        foreach (Process process in Process.GetProcesses().OrderBy(p => p.ProcessName))
+        foreach (Process process in Process.GetProcesses().Where(p=>p.MainWindowHandle!=IntPtr.Zero).OrderBy(p => p.ProcessName))
         {
           ProcessList.Add(process);
         }

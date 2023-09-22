@@ -14,7 +14,7 @@
     </Grid.ColumnDefinitions>
     <Border Grid.Column="0" Padding="4" BorderBrush="#e5e5e5" Background="#f3f3f3" BorderThickness="0 0 1 0">
       <DockPanel TextElement.FontFamily="Segoe MDL2 Assets" LastChildFill="False">
-        <RadioButton x:Name="ProcessRadBtn" Content="&#xF5ED;" Height="40" DockPanel.Dock="Top" Checked="ProcessRadBtn_Checked"/>
+        <RadioButton x:Name="ProcessRadBtn" Content="&#xF5ED;" Margin="0 0 0 2" Height="40" DockPanel.Dock="Top" Checked="ProcessRadBtn_Checked"/>
         <RadioButton x:Name="MonitorRadBtn" Content="&#xE773;" Height="40" DockPanel.Dock="Top" Checked="MonitorRadBtn_Checked"/>
         <RadioButton Content="&#xe713;" Height="40" DockPanel.Dock="Bottom" Checked="SettingRadBtn_Checked"/>
       </DockPanel>
