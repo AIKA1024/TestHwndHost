@@ -38,7 +38,7 @@ namespace TestHwndHost
         UpdateProcessList();
         monitorPage.CheckMonitorProgram(ProcessList);
       };
-      //timer.Start();
+      timer.Start();
     }
 
     public ObservableCollection<Process> ProcessList { get; set; }
