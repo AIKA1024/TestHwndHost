@@ -11,7 +11,7 @@
     <CheckBox IsChecked="{Binding AlwaysOnTop}" DockPanel.Dock="Top" Content="捕获窗口始终在最上层"/>
     <TextBlock DockPanel.Dock="Bottom" Text="某陈:我要把你们这些软件的妈妈全部抓起来"/>
     <TextBlock DockPanel.Dock="Bottom" Text="此软件是免费给曾gg开发的，如果你是购买得来的，请退款"/>
-    <TextBlock DockPanel.Dock="Bottom" Text="并不是所有的窗口都可以捕获，uwp和win3大概率不行"/>
+    <TextBlock DockPanel.Dock="Bottom" Text="并不是所有的窗口都可以捕获，uwp和winui3大概率不行"/>
   </DockPanel>
   
 </Page>
