@@ -14,7 +14,7 @@
       <RowDefinition/>
     </Grid.RowDefinitions>
     <TextBlock Margin="12 0" Text="{Binding SelectedItem.ProcessName,FallbackValue=点击一个进程开始捕获.请勿捕获系统等重要进程,ElementName=processListBox,StringFormat={}当前监控进程:{0}}"/>
-    <ListBox Grid.Row="1" x:Name="processListBox">
+    <ListBox Grid.Row="1" x:Name="processListBox" SelectionChanged="processListBox_SelectionChanged">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
