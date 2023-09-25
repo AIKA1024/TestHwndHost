@@ -22,6 +22,16 @@ namespace TestHwndHost.Views
     public ObservableCollection<Process> ProcessList { get; set; }
     public async void UpdateProcessList()
     {
+      //只有在ui线程才能获取到控件信息
+      bool contiune = true;
+      Application.Current.Dispatcher.Invoke(() =>
+      {
+        if (processListBox.SelectedItem != null)
+          contiune = false;
+      });
+      if (!contiune)
+        return;//在确认是否捕获是后不刷新listbox
+
       ProcessList = new ObservableCollection<Process>();
       IOrderedEnumerable<Process> AllProcessList = null;
       await Task.Run(() =>
@@ -37,6 +47,7 @@ namespace TestHwndHost.Views
       {
         processListBox.ItemsSource = ProcessList;
       });
+    
     }
     private void processListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
@@ -63,8 +74,7 @@ namespace TestHwndHost.Views
           viewWindow.myHwndHost.Dispose();
         }
       }
-      else
-        processListBox.SelectedItem = null;
+      processListBox.SelectedItem = null;
 
     }
   }

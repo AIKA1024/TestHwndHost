@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
 using TestHwndHost.Utils;
 using TestHwndHost.Views;
 
@@ -26,7 +29,8 @@ namespace TestHwndHost
       timer.Elapsed += (s, e) =>
       {
         processPage.UpdateProcessList();
-        monitorPage.CheckMonitorProgram(processPage.ProcessList);
+        //无法使用processPage.ProcessList因为这个不是ui线程拥有的
+        monitorPage.CheckMonitorProgram(Process.GetProcesses().Where(p => p.MainWindowHandle != IntPtr.Zero).OrderBy(p => p.ProcessName));
       };
       timer.Start();
     }
