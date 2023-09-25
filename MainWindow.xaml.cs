@@ -26,9 +26,18 @@ namespace TestHwndHost
       processPage.UpdateProcessList();
       timer = new System.Timers.Timer();
       timer.Interval = 3000;
-      timer.Elapsed += (s, e) =>
+      timer.Elapsed += async (s, e) =>
       {
-        processPage.UpdateProcessList();
+        //只有在ui线程才能获取到控件信息
+        bool contiune = true;
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+          if (processPage.processListBox.SelectedItem != null)
+            contiune = false;
+        });
+        if (contiune)
+          await processPage.UpdateProcessList();
+
         //无法使用processPage.ProcessList因为这个不是ui线程拥有的
         monitorPage.CheckMonitorProgram(Process.GetProcesses().Where(p => p.MainWindowHandle != IntPtr.Zero).OrderBy(p => p.ProcessName));
       };

@@ -13,6 +13,7 @@ namespace TestHwndHost.Views
   /// </summary>
   public partial class ProcessPage : Page
   {
+    Process LastChoice = null;
     public ProcessPage()
     {
       InitializeComponent();
@@ -20,18 +21,8 @@ namespace TestHwndHost.Views
       processListBox.ItemsSource = ProcessList;
     }
     public ObservableCollection<Process> ProcessList { get; set; }
-    public async void UpdateProcessList()
+    public async Task UpdateProcessList()
     {
-      //只有在ui线程才能获取到控件信息
-      bool contiune = true;
-      Application.Current.Dispatcher.Invoke(() =>
-      {
-        if (processListBox.SelectedItem != null)
-          contiune = false;
-      });
-      if (!contiune)
-        return;//在确认是否捕获是后不刷新listbox
-
       ProcessList = new ObservableCollection<Process>();
       IOrderedEnumerable<Process> AllProcessList = null;
       await Task.Run(() =>
@@ -46,6 +37,8 @@ namespace TestHwndHost.Views
       Application.Current.Dispatcher.Invoke(() =>
       {
         processListBox.ItemsSource = ProcessList;
+        if (LastChoice != null && !LastChoice.HasExited)
+          processListBox.SelectedItem = LastChoice;
       });
     
     }
@@ -54,9 +47,26 @@ namespace TestHwndHost.Views
       if (processListBox.SelectedItem == null)
         return;
 
+      Application.Current.Dispatcher.Invoke(() =>
+      {
+        LastChoice = processListBox.SelectedItem as Process ?? LastChoice;
+      });
+
       if (MessageBox.Show("切换监控进程", "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
       {
-        Process process = (Process)processListBox.SelectedItem;
+        Process process = processListBox.SelectedItem as Process;
+        if (processListBox.SelectedItem == null)
+        {
+          if (LastChoice== null || LastChoice.HasExited)
+          {
+            MessageBox.Show("该进程可能已经退出", "提示");
+            return;
+          }
+          else
+          {
+            process = LastChoice;
+          }
+        }
         if (process.MainWindowHandle == IntPtr.Zero)
         {
           MessageBox.Show("无法捕获该进程,可能该进程并没有窗口或者这个是隐藏的进程", "提示");
