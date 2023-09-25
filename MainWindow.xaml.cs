@@ -81,7 +81,9 @@ namespace TestHwndHost
         catch (Exception ex)
         {
           MessageBox.Show(ex.Message,"错误");
-          viewWindow.myHwndHost.Dispose();
+          process.Kill();
+          process.Close();
+          process.Dispose();
         }
       }
       else
