@@ -4,11 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestHwndHost"
-        mc:Ignorable="d" Topmost="{Binding Option.AlwaysOnTop}"
+        mc:Ignorable="d" Topmost="{Binding IsChecked,ElementName=TopCheckBox}"
         Title="ViewWindow" Height="450" Width="800" Closing="Window_Closing" WindowStartupLocation="CenterScreen">
-    <Grid Margin="4">
-      <Border x:Name="Host" Grid.Row="1">
-        <local:MyHwndHost x:Name="myHwndHost"/>
-      </Border>
+  <Grid Margin="4">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="20"/>
+    </Grid.RowDefinitions>
+
+    <Border Grid.Row="0" x:Name="Host">
+      <local:MyHwndHost x:Name="myHwndHost" />
+    </Border>
+
+    <StackPanel Orientation="Horizontal" Grid.Row="1">
+      <CheckBox x:Name="TopCheckBox" Content="置于顶层"/>
+      <CheckBox Content="阻止截屏和录屏" Margin="8 0 0 0" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"/>
+    </StackPanel>
   </Grid>
 </Window>

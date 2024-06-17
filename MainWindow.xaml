@@ -3,24 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:converts="clr-namespace:TestHwndHost.Resources.Converters"
-        xmlns:local="clr-namespace:TestHwndHost"
         mc:Ignorable="d"
         Title="Capture Tools" Height="450" Width="800">
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="48"/>
-      <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <Border Grid.Column="0" Padding="4" BorderBrush="#e5e5e5" Background="#f3f3f3" BorderThickness="0 0 1 0">
-      <DockPanel TextElement.FontFamily="Segoe MDL2 Assets" LastChildFill="False">
-        <RadioButton x:Name="ProcessRadBtn" Content="&#xF5ED;" Margin="0 0 0 2" Height="40" DockPanel.Dock="Top" Checked="ProcessRadBtn_Checked"/>
-        <RadioButton x:Name="MonitorRadBtn" Content="&#xE773;" Height="40" DockPanel.Dock="Top" Checked="MonitorRadBtn_Checked"/>
-        <RadioButton Content="&#xe713;" Height="40" DockPanel.Dock="Bottom" Checked="SettingRadBtn_Checked"/>
-      </DockPanel>
-    </Border>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" Padding="4" BorderBrush="#e5e5e5" Background="#f3f3f3" BorderThickness="0 0 1 0">
+            <DockPanel TextElement.FontFamily="Segoe MDL2 Assets" LastChildFill="False">
+                <RadioButton x:Name="ProcessRadBtn" Content="&#xF5ED;" Margin="0 0 0 2" Height="40"
+                             DockPanel.Dock="Top" Checked="ProcessRadBtn_Checked" />
+                <RadioButton x:Name="MonitorRadBtn" Content="&#xE773;" Height="40" DockPanel.Dock="Top"
+                             Checked="MonitorRadBtn_Checked" />
+                <RadioButton Content="&#xe713;" Height="40" DockPanel.Dock="Bottom" Checked="SettingRadBtn_Checked" />
+            </DockPanel>
+        </Border>
 
-    <Frame x:Name="frame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
-  </Grid>
+        <Frame x:Name="frame" Grid.Column="1" NavigationUIVisibility="Hidden" />
+    </Grid>
 
 </Window>
