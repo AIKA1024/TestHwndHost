@@ -56,7 +56,7 @@ namespace TestHwndHost
 
     private void CheckBox_Checked(object sender, RoutedEventArgs e)
     {
-      Win32Native.SetWindowDisplayAffinity(new WindowInteropHelper(this).Handle, Win32Native.WDA_MONITOR);
+      Win32Native.SetWindowDisplayAffinity(new WindowInteropHelper(this).Handle, Win32Native.WDA_EXCLUDEFROMCAPTURE);
     }
 
     private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
